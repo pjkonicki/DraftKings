@@ -6,7 +6,9 @@ from traceback import print_exc
 from draftkings_stream import stream
 
 id_dict = {"NHL": "42133", "NFL": "88808",
-           "NBA": "42648", "England - Premier League": "40253"}
+           "NBA": "42648", "England - Premier League": "40253", 
+           "TT": "208037",
+           "MLB": "84240"}
 
 
 class DraftKings:
@@ -19,8 +21,9 @@ class DraftKings:
         """
         self.league = league
         self.pregame_url = f"https://sportsbook.draftkings.com//sites/US-SB/api/v5/eventgroups/{id_dict[self.league]}?format=json"
-        self.uri = "wss://ws-draftkingseu.pusher.com/app/490c3809b82ef97880f2?protocol=7&client=js&version=7.3.0&flash=false"
-
+        # self.uri = "wss://ws-draftkingseu.pusher.com/app/490c3809b82ef97880f2?protocol=7&client=js&version=7.3.0&flash=false"
+        self.uri = "wss://ws-draftkings.pusher.com/app/3f6baac53b2747c2588c?protocol=7&client=js&version=4.2.2&flash=false"
+    
     def get_event_ids(self) -> dict:
         """
         Finds all the games & their event_ids for the given league

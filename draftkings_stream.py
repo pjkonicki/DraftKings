@@ -38,7 +38,7 @@ async def stream(uri: str, league_id: str, event_ids: list, markets: list):
             try:
                 new_message = await ws.recv()
                 message_json = json.loads(new_message)
-
+                print(message_json)
                 event = message_json['event']
                 if not event == "offer-updated":
                     if event == 'pusher:connection_established':
@@ -48,7 +48,7 @@ async def stream(uri: str, league_id: str, event_ids: list, markets: list):
                         print("Subscription succeeded, awaits new odds updates...")
                         continue
                     else:
-                        # print(f"Update received but for the wrong WS event type: {event}")
+                        print(f"Update received but for the wrong WS event type: {event}")
                         continue
 
                 content = json.loads(message_json['data'])
@@ -57,7 +57,7 @@ async def stream(uri: str, league_id: str, event_ids: list, markets: list):
                     # if a list of event_ids is provided, this checks whether
                     # the update is relevant or not
                     if not event_id in event_ids:
-                        # print(f"Update received but for the wrong event_id: {event_id}")
+                        print(f"Update received but for the wrong event_id: {event_id}")
                         continue
 
                 market = content['data'][0]['label']
@@ -65,7 +65,7 @@ async def stream(uri: str, league_id: str, event_ids: list, markets: list):
                     # if a list of wanted markets is provided, this checks whether
                     # the update is relevant or not
                     if not market in markets:
-                        # print(f"Update received but for the wrong market: {market}")
+                        print(f"Update received but for the wrong market: {market}")
                         continue
 
                 # if the WS event type is correct [offer-updated], the event_id is
